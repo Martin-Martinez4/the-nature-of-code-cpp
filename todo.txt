@@ -1,0 +1,5 @@
+- Change CMakeLists to reflect the new program structure
+  - Chapter dirs will have the scenes associated with the chapter, Utils, main, CMakeLists will be in the parent folder. 
+  - Whole thing will be one project
+- Use a state stack to handle menus.  
+
