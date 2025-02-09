@@ -14,7 +14,9 @@ public:
   virtual void Update(uint32_t dt) override;
   virtual void Draw() override;
   virtual const std::string& GetSceneName() const override;
-  //virtual const void HandleInput() override;
+  virtual const void HandleInput() override;
+  void CleanUpAndExit();
+  void DrawGUI();
 
   float bottomPadding;
   float xPadding;
@@ -27,5 +29,6 @@ public:
 
 private:
   std::string name = "Velocity and Acceleration";
+  bool showDemoWindow = false;
 };
 #endif // !VECTORS_VELOCITYSCENE

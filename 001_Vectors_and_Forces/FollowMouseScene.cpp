@@ -3,6 +3,8 @@
 #include "Scene.h"
 #include "raylib.h"
 #include "raymath.h"
+#include "rlImGui.h"
+#include "imgui.h"
 FollowMouseScene::FollowMouseScene(SceneStack& sceneStack, int winWidth, int winHeight, float maxVelocity): Scene(sceneStack, winWidth, winHeight), maxVelocity{maxVelocity}{
   position = Vector2{winWidth/2.f, winHeight/2.f};
 };
@@ -28,9 +30,21 @@ void FollowMouseScene::Update(uint32_t dt){
     }
     velocity = Vector2ClampValue(Vector2Add(velocity, acceleration), -maxVelocity, maxVelocity);
 }
+
+void FollowMouseScene::DrawGUI(){
+
+    rlImGuiBegin();
+    bool open = true;
+    ImGui::ShowDemoWindow(&open);
+    DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
+    DrawFPS(190, 300);
+    rlImGuiEnd();
+}
 void FollowMouseScene::Draw(){
 
     BeginDrawing();
+
+    DrawGUI();
   
     DrawCircle(position.x, position.y, 10.f, RED);
 

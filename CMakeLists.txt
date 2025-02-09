@@ -50,9 +50,23 @@ include_directories(
   
   ${CMAKE_CURRENT_SOURCE_DIR}/000_Randomness
   ${CMAKE_CURRENT_SOURCE_DIR}/001_Vectors_and_Forces
+
 )
-#set(raylib_VERBOSE 1)
-target_link_libraries(${PROJECT_NAME} raylib)
+
+#add_library(imgui STATIC
+#  ${CMAKE_CURRENT_SOURCE_DIR}/external/imgui/imgui.cpp
+#  ${CMAKE_CURRENT_SOURCE_DIR}/external/imgui/imgui_draw.cpp
+#  ${CMAKE_CURRENT_SOURCE_DIR}/external/imgui/imgui_tables.cpp
+#  ${CMAKE_CURRENT_SOURCE_DIR}/external/imgui/imgui_widgets.cpp
+#)
+
+# rlimgui raylib backend for Dear imgui
+
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/external/rlimgui EXCLUDE_FROM_ALL)
+
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/external/imgui EXCLUDE_FROM_ALL)
+
+target_link_libraries(${PROJECT_NAME} PUBLIC imgui raylib rlimgui)
 
 # Web Configurations
 if (${PLATFORM} STREQUAL "Web")

@@ -1,10 +1,7 @@
 
 
 #include <cmath>
-#include <iostream>
-#include <map>
 #include <memory>
-#include <random>
 #include "FollowMouseScene.h"
 #include "NormalDistributionScene.h"
 #include "OptionsScene.h"
@@ -13,6 +10,8 @@
 #include "VelocityScene.h"
 #include "raylib.h"
 #include "Random.h"
+#include "imgui.h"
+#include "rlImGui.h"
 
 int main(){
 
@@ -70,18 +69,22 @@ int main(){
   sceneStack.push(chapterSelectScene);
 
   SetTargetFPS(60);
-  while(!WindowShouldClose()){
 
-    //vas.Update(GetFrameTime());
-    //vas.Draw();
+  rlImGuiSetup(true);
+  while(!WindowShouldClose()){
 
     auto current = sceneStack.top();
     current->Update(GetFrameTime());
     current->Draw();
     current->HandleInput();
-    
-  }
 
+    /*
+    BeginDrawing();
+    ClearBackground(RAYWHITE);
+    EndDrawing();
+    */
+  }
+  rlImGuiShutdown();
   CloseWindow();
 
   return 0;

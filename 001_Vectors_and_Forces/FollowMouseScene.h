@@ -10,6 +10,7 @@ public:
   
   virtual void Init() override;
   virtual void Update(uint32_t dt) override;
+  void DrawGUI();
   virtual void Draw() override;
   virtual const std::string& GetSceneName() const override;
   //virtual const void HandleInput() override;
