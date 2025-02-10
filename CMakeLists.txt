@@ -38,6 +38,7 @@ set(sources ${sources}
   ${CMAKE_CURRENT_SOURCE_DIR}/001_Forces/ForcesScene.cpp
   
   ${CMAKE_CURRENT_SOURCE_DIR}/Utils/Random.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/Utils/Number.cpp
 )
 
 

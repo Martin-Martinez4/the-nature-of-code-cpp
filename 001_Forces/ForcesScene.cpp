@@ -20,9 +20,10 @@ void ForcesScene::Update(uint32_t dt) {
 
     for(int i = 0; i < movers.size(); ++i){
       movers[i].Update(dt);
-      if(movers[i].position.y >= winHeight - movers[i].radius){
-        movers[i].position.y = winHeight - movers[i].radius;
-      }
+      //if(movers[i].position.y >= winHeight - movers[i].radius){
+      //  movers[i].position.y = winHeight - movers[i].radius;
+      //}
+      bounceOnEdge(movers[i], winWidth, winHeight);
     }
   }
 }
