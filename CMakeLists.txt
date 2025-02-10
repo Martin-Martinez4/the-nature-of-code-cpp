@@ -28,12 +28,14 @@ endif()
 set(sources ${sources}
   
   ${CMAKE_CURRENT_SOURCE_DIR}/000_Common/OptionsScene.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/000_Common/Mover.cpp
 
   ${CMAKE_CURRENT_SOURCE_DIR}/000_Randomness/NormalDistributionScene.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/000_Randomness/PerlinNoiseScene.cpp
 
-  ${CMAKE_CURRENT_SOURCE_DIR}/001_Vectors_and_Forces/VelocityScene.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/001_Vectors_and_Forces/FollowMouseScene.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/001_Forces/VelocityScene.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/001_Forces/FollowMouseScene.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/001_Forces/ForcesScene.cpp
   
   ${CMAKE_CURRENT_SOURCE_DIR}/Utils/Random.cpp
 )
@@ -49,7 +51,7 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/Utils
   
   ${CMAKE_CURRENT_SOURCE_DIR}/000_Randomness
-  ${CMAKE_CURRENT_SOURCE_DIR}/001_Vectors_and_Forces
+  ${CMAKE_CURRENT_SOURCE_DIR}/001_Forces
 
 )
 

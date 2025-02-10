@@ -13,12 +13,11 @@ public:
   void Update(uint32_t dt);
   void Draw();
 
-private:
-
   Vector2 position;
   Vector2 velocity;
   Vector2 acceleration;
-  float mass;
+  float mass = 1;
+  float radius = mass * 16; 
 
   Color color;
 };

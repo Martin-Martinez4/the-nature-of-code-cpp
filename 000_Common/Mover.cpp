@@ -19,7 +19,7 @@ void Mover::Update(uint32_t dt){
 }
 
 void Mover::Draw(){
-  BeginDrawing();
+  //BeginDrawing();
   DrawCircle(position.x, position.y, mass * 16, RED);
-  EndDrawing();
+  //EndDrawing();
 }

@@ -1,6 +1,6 @@
 
-#ifndef VECTORS_VELOCITYSCENE
-#define VECTORS_VELOCITYSCENE
+#ifndef FORCES_VELOCITY_SCENE
+#define FORCES_VELOCITY_SCENE
 
 #include "Scene.h"
 #include "raylib.h"
@@ -31,4 +31,4 @@ private:
   std::string name = "Velocity and Acceleration";
   bool showDemoWindow = false;
 };
-#endif // !VECTORS_VELOCITYSCENE
+#endif // !FORCES_VELOCITY_SCENE

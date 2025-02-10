@@ -1,5 +1,5 @@
-#ifndef VELOCITY_FOLLOW_MOUSE_SCENE_H_
-#define VELOCITY_FOLLOW_MOUSE_SCENE_H_
+#ifndef FORCES_FOLLOW_MOUSE_SCENE_H_
+#define FORCES_FOLLOW_MOUSE_SCENE_H_
 
 #include "Scene.h"
 #include "raylib.h"
@@ -27,5 +27,5 @@ private:
 };
 
 
-#endif // !VELOCITY_FOLLOW_MOUSE_SCENE_H_
+#endif // !FORCES_FOLLOW_MOUSE_SCENE_H_
 

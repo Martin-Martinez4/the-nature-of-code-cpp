@@ -23,7 +23,23 @@ void VelocityScene::Update(uint32_t dt){
     }else if(position.y < 0){
       position.y = winHeight;
     }
-    velocity = Vector2ClampValue(Vector2Add(velocity, acceleration), -maxVelocity, maxVelocity);
+    //velocity = Vector2ClampValue(Vector2Add(velocity, acceleration), -maxVelocity, maxVelocity);
+
+    float x = velocity.x + acceleration.x;
+    if(x > maxVelocity){
+      x = maxVelocity;
+    }else if(x < -maxVelocity){
+      x = -maxVelocity;
+    }
+
+    float y = velocity.y + acceleration.y;
+    if(y > maxVelocity){
+      y = maxVelocity;
+    }else if(y < -maxVelocity){
+      y = -maxVelocity;
+    }
+
+    velocity = Vector2{x, y};
 }
 void DoMainMenu(){
   
@@ -56,24 +72,16 @@ void VelocityScene::DrawGUI(){
 
 		if (ImGui::Begin("Test Window"))
 		{
-      float tempVeloX = velocity.x;
-      if(ImGui::SliderFloat("velocity x", &tempVeloX, -maxVelocity, maxVelocity)){
-        velocity.x = tempVeloX; 
-      }
+      if(ImGui::SliderFloat("Velocity x", &velocity.x, -maxVelocity, maxVelocity)){}
+      if(ImGui::SliderFloat("Velocity y", &velocity.y, -maxVelocity, maxVelocity)){}
+    
+      if(ImGui::SliderFloat("Acceleration x", &acceleration.x, -0.05, 0.05)){}
+      if(ImGui::SliderFloat("Acceleration y", &acceleration.y, -.05, .05)){}
 		}
 		ImGui::End();
 
 		// end ImGui Content
 		rlImGuiEnd();
-
-  /*  
-  rlImGuiBegin();
-  bool open = true;
-  ImGui::ShowDemoWindow(&open);
-  DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
-  DrawFPS(190, 300);
-  rlImGuiEnd();
-  */
 }
 void VelocityScene::Draw(){
 
