@@ -3,9 +3,11 @@
 #include "Mover.h"
 #include "Scene.h"
 #include "raylib.h"
+#include "raymath.h"
 #include "rlImGui.h"
 #include "imgui.h"
 #include "Number.h"
+#include <cmath>
 
 ForcesScene::ForcesScene(SceneStack& sceneStack, int winWidth, int winHeight): Scene(sceneStack, winWidth, winHeight){};
 
@@ -14,15 +16,20 @@ void ForcesScene::Update(uint32_t dt) {
   if(!isPaused){
 
     for(int i = 0; i < movers.size(); ++i){
-      
+
       movers[i].ApplyForce(Vector2{gravity.x * movers[i].mass, gravity.y * movers[i].mass});
     }
 
     for(int i = 0; i < movers.size(); ++i){
       movers[i].Update(dt);
-      //if(movers[i].position.y >= winHeight - movers[i].radius){
-      //  movers[i].position.y = winHeight - movers[i].radius;
-      //}
+
+      if(isContactingEdge(movers[i], winWidth, winHeight)){
+        if(fabs(movers[i].velocity.x) > 0.1 || fabs(movers[i].velocity.y) > 0.1){  
+          float c = 0.1f;
+          Vector2 friction = setMagnitude(movers[i].velocity * -1, c);
+          movers[i].ApplyForce(friction);
+        }
+      }
       bounceOnEdge(movers[i], winWidth, winHeight);
     }
   }

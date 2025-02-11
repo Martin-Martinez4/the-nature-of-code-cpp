@@ -17,7 +17,8 @@ public:
   Vector2 velocity;
   Vector2 acceleration;
   float mass = 1;
-  float radius = mass * 16; 
+  float radius = mass * 16;
+  float energyConservationRate = 0.75;
 
   Color color;
 };

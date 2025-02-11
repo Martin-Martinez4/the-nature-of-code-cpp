@@ -13,5 +13,7 @@ T simpleClamp(T value, T min, T max){
 }
 
 void bounceOnEdge(Mover& mover, int width, int height);
+bool isContactingEdge(Mover& mover, int width, int height);
+Vector2 setMagnitude(Vector2 vec2, float magnitude);
 
 

@@ -28,7 +28,7 @@ private:
 
   bool isPaused = true;
 
-  Vector2 gravity = {0, 0.1};
+  Vector2 gravity = {0.0f, 0.1f};
   Vector2 wind = {0.1, 0};
 };
 
