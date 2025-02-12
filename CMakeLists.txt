@@ -29,6 +29,7 @@ set(sources ${sources}
   
   ${CMAKE_CURRENT_SOURCE_DIR}/000_Common/OptionsScene.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/000_Common/Mover.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/000_Common/Liquid.cpp
 
   ${CMAKE_CURRENT_SOURCE_DIR}/000_Randomness/NormalDistributionScene.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/000_Randomness/PerlinNoiseScene.cpp

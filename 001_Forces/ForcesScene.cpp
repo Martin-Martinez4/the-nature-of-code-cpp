@@ -1,5 +1,6 @@
 
 #include "ForcesScene.h"
+#include "Liquid.h"
 #include "Mover.h"
 #include "Scene.h"
 #include "raylib.h"
@@ -7,13 +8,29 @@
 #include "rlImGui.h"
 #include "imgui.h"
 #include "Number.h"
+#include <algorithm>
 #include <cmath>
+#include <iostream>
 
-ForcesScene::ForcesScene(SceneStack& sceneStack, int winWidth, int winHeight): Scene(sceneStack, winWidth, winHeight){};
+ForcesScene::ForcesScene(SceneStack& sceneStack, int winWidth, int winHeight): Scene(sceneStack, winWidth, winHeight){
+  Init();
+};
 
-void ForcesScene::Init() {}
+void ForcesScene::Init() {
+  liquids.push_back(Liquid(winWidth/2, winHeight/2, 100, 200));
+}
 void ForcesScene::Update(uint32_t dt) {
   if(!isPaused){
+    
+
+    for(int i = 0; i < liquids.size(); ++i){
+
+      for(int j = 0; j < movers.size(); ++j){
+        if(liquids[i].ContainsMover(movers[j])){
+          movers[j].ApplyForce(liquids[i].CalculateDrag(movers[j]));
+        }
+      }
+    }
 
     for(int i = 0; i < movers.size(); ++i){
 
@@ -37,10 +54,13 @@ void ForcesScene::Update(uint32_t dt) {
 void ForcesScene::Draw() {
 
   BeginDrawing();
-  
 
   for(int i = 0; i < movers.size(); ++i){
     movers[i].Draw();
+  }
+  
+  for(int i = 0; i < liquids.size(); ++i){
+    liquids[i].Draw();
   }
 
   DrawGUI();
@@ -119,3 +139,27 @@ void ForcesScene::DrawGUI(){
 	// end ImGui Content
 	rlImGuiEnd();
 };
+
+const void ForcesScene::HandleInput(){
+  if(IsKeyPressed(KEY_A)){
+    std::clog << "A Pressed\n";
+  }
+  if(IsMouseButtonDown(MOUSE_BUTTON_LEFT) ){
+    std::clog << "Left Click\n";
+    for(int i = 0; i < movers.size(); ++i){
+      Mover current = movers[i];
+      Vector2 mPos = GetMousePosition();
+
+      if(sqrtf(powf(mPos.x - current.position.x, 2) + powf(mPos.y - current.position.y, 2)) <= current.radius){
+        Vector2 force{clickForce.x, clickForce.y};
+        if(mPos.y > current.position.y){
+          force.y *= -1;
+        }
+        if(mPos.x > current.position.x){
+          force.x *= -1;
+        }
+        movers[i].ApplyForce(force);
+      }
+    }
+  }
+}
