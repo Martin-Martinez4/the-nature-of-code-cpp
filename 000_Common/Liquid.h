@@ -1,7 +1,7 @@
 #ifndef COMMON_LIQUID_H_
 #define COMMON_LIQUID_H_
 
-#include "Mover.h"
+#include "Body.h"
 #include "raylib.h"
 #include <cstdint>
 class Liquid{
@@ -11,8 +11,8 @@ public:
   void Update(uint32_t dt);
   void Draw();
 
-  bool ContainsMover(Mover& mover);
-  Vector2  CalculateDrag(Mover& mover);
+  bool ContainsMover(Body& body);
+  Vector2  CalculateDrag(Body& body);
 
   Rectangle rectangle;
 

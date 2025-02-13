@@ -1,5 +1,5 @@
 
-#include "Mover.h"
+#include "Body.h"
 #include "raylib.h"
 template <typename T>
 T simpleClamp(T value, T min, T max){
@@ -12,8 +12,10 @@ T simpleClamp(T value, T min, T max){
   return value;
 }
 
-void bounceOnEdge(Mover& mover, int width, int height);
-bool isContactingEdge(Mover& mover, int width, int height);
+void bounceOnEdge(Body& body, int width, int height);
+bool isContactingEdge(Body& body, int width, int height);
 Vector2 setMagnitude(Vector2 vec2, float magnitude);
+
+float randomFloat(float min, float max);
 
 

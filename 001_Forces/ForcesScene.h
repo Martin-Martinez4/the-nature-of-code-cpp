@@ -1,8 +1,8 @@
 #ifndef FORCES_FORCES_SCENE_H_
 #define FORCES_FORCES_SCENE_H_
 
+#include "Body.h"
 #include "Liquid.h"
-#include "Mover.h"
 #include "Scene.h"
 #include "raylib.h"
 #include <vector>
@@ -21,7 +21,7 @@ public:
 
 private:
   std::string name = "Forces";
-  std::vector<Mover> movers = {};
+  std::vector<Body> movers = {};
   std::vector<Liquid> liquids = {};
 
   float tempX = 0;

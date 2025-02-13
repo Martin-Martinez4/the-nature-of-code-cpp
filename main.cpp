@@ -6,6 +6,7 @@
 #include "ForcesScene.h"
 #include "NormalDistributionScene.h"
 #include "OptionsScene.h"
+#include "OscillationScene.h"
 #include "PerlinNoiseScene.h"
 #include "Scene.h"
 #include "VelocityScene.h"
@@ -42,7 +43,7 @@ int main(){
   ));
 
   auto forcesSelectScene = std::shared_ptr<Scene>(new OptionsScene(sceneStack, winWidth, winHeight, 
-    {"Velocity", "Follow the Mouse", "Forces"}, 
+    {"Velocity", "Follow the Mouse", "Forces", "Oscillation"}, 
     {
       [&sceneStack](){
         sceneStack.push(std::shared_ptr<Scene>(new VelocityScene(sceneStack, winWidth, winHeight)));
@@ -52,6 +53,9 @@ int main(){
       }, 
       [&sceneStack](){
         sceneStack.push(std::shared_ptr<Scene>(new ForcesScene(sceneStack, winWidth, winHeight)));
+      }, 
+      [&sceneStack](){
+        sceneStack.push(std::shared_ptr<Scene>(new OscillationScene(sceneStack, winWidth, winHeight)));
       }, 
     }
   ));

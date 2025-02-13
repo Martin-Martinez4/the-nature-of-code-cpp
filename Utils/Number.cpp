@@ -1,7 +1,8 @@
 #include "Number.h"
 #include "raymath.h"
+#include <cstdlib>
 
-void bounceOnEdge(Mover& mover, int width, int height){
+void bounceOnEdge(Body& mover, int width, int height){
   if(mover.position.x >= width - mover.radius){
     mover.position.x = width - mover.radius;
     mover.velocity.x *= -1 * mover.energyConservationRate;
@@ -16,10 +17,17 @@ void bounceOnEdge(Mover& mover, int width, int height){
   }
 }
 
-bool isContactingEdge(Mover& mover, int width, int height){
+bool isContactingEdge(Body& mover, int width, int height){
   return (mover.position.y > (height - mover.radius - 1));
 }
 
 Vector2 setMagnitude(Vector2 vec2, float magnitude){
   return Vector2Normalize(vec2) * magnitude; 
+}
+
+float randomFloat(float min, float max){
+  float random = ((float) rand()) / ((float)RAND_MAX);
+  float diff = max - min;
+  float r = random * diff;
+  return min + r;
 }

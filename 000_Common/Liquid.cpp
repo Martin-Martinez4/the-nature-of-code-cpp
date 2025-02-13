@@ -13,10 +13,10 @@ void Liquid::Update(uint32_t dt){};
 void Liquid::Draw(){
   DrawRectangle(x, y, w, h, Color{100, 255, 100, 150});
 };
-bool Liquid::ContainsMover(Mover& mover){
+bool Liquid::ContainsMover(Body& mover){
   return (mover.position.x > x && mover.position.x < x + w && mover.position.y > y && mover.position.y < y + h);
 }
-Vector2 Liquid::CalculateDrag(Mover& mover){
+Vector2 Liquid::CalculateDrag(Body& mover){
   float speed = Vector2Length(mover.velocity);
   float dragMagnitude = c * speed * speed;
 

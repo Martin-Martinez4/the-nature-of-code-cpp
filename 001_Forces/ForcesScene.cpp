@@ -1,7 +1,6 @@
 
 #include "ForcesScene.h"
 #include "Liquid.h"
-#include "Mover.h"
 #include "Scene.h"
 #include "raylib.h"
 #include "raymath.h"
@@ -128,7 +127,7 @@ void ForcesScene::DrawGUI(){
         tempMass = simpleClamp(tempMass, 1.f, float(100));
       }
       if(ImGui::Button("Add Mover")){
-        movers.push_back(Mover(Vector2{tempX, tempY}, tempMass, BLUE));
+        movers.push_back(Body(Vector2{tempX, tempY}, tempMass, BLUE));
       } 
     }
     
@@ -147,7 +146,7 @@ const void ForcesScene::HandleInput(){
   if(IsMouseButtonDown(MOUSE_BUTTON_LEFT) ){
     std::clog << "Left Click\n";
     for(int i = 0; i < movers.size(); ++i){
-      Mover current = movers[i];
+      Body current = movers[i];
       Vector2 mPos = GetMousePosition();
 
       if(sqrtf(powf(mPos.x - current.position.x, 2) + powf(mPos.y - current.position.y, 2)) <= current.radius){
