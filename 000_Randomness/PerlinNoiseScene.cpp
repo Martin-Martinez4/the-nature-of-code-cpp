@@ -56,7 +56,7 @@ void PerlinNoiseScene::Init(){
   texture2d = std::make_unique<RenderTexture2D>(target);
    
 }
-void PerlinNoiseScene::Update(uint32_t dt){}
+void PerlinNoiseScene::Update(double dt){}
 void PerlinNoiseScene::Draw(){
   BeginDrawing();
   DrawTexture(texture2d.get()->texture, 0, 0, WHITE);

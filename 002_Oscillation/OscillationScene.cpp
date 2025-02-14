@@ -16,7 +16,7 @@ Oscillator::Oscillator(int winWidth, int winHeight):winWidth{winWidth}, winHeigh
   angularVelocity = Vector2{randomFloat(-0.1, 0.1), randomFloat(-0.1, 0.1)};
   amplitude = Vector2{randomFloat(10, winWidth/2), randomFloat(10, winHeight/2)};
 };
-void Oscillator::Update(uint32_t dt){
+void Oscillator::Update(double dt){
   angle = Vector2Add(angle, angularVelocity);
 }
 void Oscillator::Draw(){
@@ -31,8 +31,71 @@ void Oscillator::Draw(){
 
 Bob::Bob(Vector2 position,  float mass, Color color):Body(position, mass, color){};
 
-Spring::Spring(float x, float y, int restLength):x{x}, y{y}, restLength{restLength}{}
-void Spring::Connnect(Bob bob){}
+Spring::Spring(float x, float y, int restLength):x{x}, y{y}, restLength{restLength}, anchor{Vector2{x,y}}{}
+Vector2 Spring::Connnect(Bob& bob){
+  Vector2 force = Vector2Subtract(bob.position, anchor);
+
+  float currentLength = Vector2Length(force);
+  float stretch = currentLength - restLength;
+
+  force = setMagnitude(force, -1 * k * stretch);
+
+  //ConstrainLength(force, 1, 2);
+  float min = 0.001;
+  float max = 640;
+/*
+  Vector2 dir = Vector2Subtract(anchor, bob.position);
+  float d = Vector2Length(dir);
+
+  if(d < min){
+    dir = setMagnitude(dir, min);
+    bob.position = Vector2Add(anchor, dir);
+    bob.velocity *= 0;
+  }else if(d > max){
+    dir = setMagnitude(dir, max);
+    bob.position = Vector2Add(anchor, dir);
+    bob.velocity *= 0;
+  }
+  */
+  return force;
+
+}
+
+void Spring::ConstrainLength(Vector2& force, float min, float max){
+  float currentLength = Vector2Length(force);
+
+  if(currentLength < min){
+    force = setMagnitude(force, min);
+  }else if(currentLength > max){
+    force = setMagnitude(force, max);
+  }
+}
+
+void Spring::Draw(){
+  DrawCircle(anchor.x, anchor.y, 16, BLUE);
+}
+
+// ===== Pendulum =====
+
+Pendulum::Pendulum(float x, float y, float r):pivot{Vector2{x,y}}, r{r}{
+  bob = Vector2{x, 500};
+}
+
+void Pendulum::Update(double dt){
+  float gravity = 0.1;
+  angularAcceleration = ((-1*gravity / r) * sinf(angle))/dt;
+  angularVelocity += angularAcceleration;
+  angle += angularVelocity;
+  angularVelocity *= damping;
+}
+void Pendulum::Draw(){
+  bob.x = r * sinf(angle);
+  bob.y = r * cosf(angle);
+  bob += pivot;
+  DrawLine(pivot.x, pivot.y, bob.x, bob.y, WHITE);
+  DrawCircle(bob.x, bob.y, ballr * 2, BLUE);
+}
+
 
 // ===== Scene =====
 OscillationScene::OscillationScene(SceneStack& sceneStack, int winWidth, int winHeight): Scene(sceneStack, winWidth, winHeight){
@@ -44,14 +107,15 @@ void OscillationScene::Init() {
 
     oscillators.push_back(Oscillator(winWidth, winHeight));
   }
+
+
 }
-void OscillationScene::Update(uint32_t dt) {
+void OscillationScene::Update(double dt) {
   if(!isPaused){
-    
+    pendulum.Update(dt); 
     for(int i = 0; i < oscillators.size(); ++i){
       oscillators[i].Update(dt);
     }
-
   }
 }
 void OscillationScene::Draw() {
@@ -61,6 +125,8 @@ void OscillationScene::Draw() {
   for(int i = 0; i < oscillators.size(); ++i){
     oscillators[i].Draw();
   }
+
+  pendulum.Draw();
 
   DrawGUI();
   EndDrawing();

@@ -10,7 +10,7 @@
 class Oscillator {
 public:
   Oscillator(int winWidth, int winHeight);
-  void Update(uint32_t dt);
+  void Update(double dt);
   void Draw();
 
   int winWidth;
@@ -23,21 +23,46 @@ private:
 };
 
 class Bob: public Body{
+public:
   Bob(Vector2 position = Vector2{0,0},  float mass = 10.f, Color color = RED);
 };
 
 class Spring {
 public:
   Spring(float x, float y, int restLength);
-  // also called bob
-  void Connnect(Bob bob);
+  
+  void Draw();
+  
+  Vector2 Connnect(Bob& bob);
+  void ConstrainLength(Vector2& vector, float min, float max);
+
   float x;
   float y;
 private:
   Vector2 anchor{};
   int restLength;
-  float k = 0.2;
+  float k = 0.002;
 
+};
+
+class Pendulum{
+public:
+  Pendulum(float x, float y, float r);
+
+  void Update(double dt);
+  void Draw();
+
+private:
+  Vector2 pivot;
+  float r;
+  float angle = PI / 4;
+  float damping = 0.99;
+  
+  float angularVelocity = 0;
+  float angularAcceleration = 0;
+  float ballr = 16;
+
+  Vector2 bob;
 };
 
 class OscillationScene: public Scene{
@@ -46,7 +71,7 @@ public:
   OscillationScene(SceneStack& sceneStack, int winWidth, int winHeight);
 
   virtual void Init() override;
-  virtual void Update(uint32_t dt) override;
+  virtual void Update(double dt) override;
   virtual void Draw() override;
   virtual const std::string& GetSceneName() const override;
   virtual const void HandleInput() override;
@@ -55,6 +80,8 @@ public:
 private:
   std::string name = "Oscillators";
   std::vector<Oscillator> oscillators = {};
+  
+  Pendulum pendulum = Pendulum(winWidth/2, 100, 100);
 
   float tempX = 0;
   float tempY = 0;

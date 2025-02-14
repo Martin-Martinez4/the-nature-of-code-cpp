@@ -16,7 +16,7 @@ OptionsScene::OptionsScene(SceneStack& sceneStack, int winWidth, int winHeight,s
 };
 
 void OptionsScene::Init() {}
-void OptionsScene::Update(uint32_t dt) {}
+void OptionsScene::Update(double dt) {}
 void OptionsScene::Draw(){
   ClearBackground(BLACK);
   BeginDrawing();

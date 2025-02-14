@@ -9,7 +9,7 @@
 
 Liquid::Liquid(float x, float y, float w, float h, float c):x{x}, y{y}, w{w}, h{h}, c{c}, rectangle(std::move(Rectangle{x,y,w,h})) {};
 void Liquid::ApplyForce(Vector2 force){};
-void Liquid::Update(uint32_t dt){};
+void Liquid::Update(double dt){};
 void Liquid::Draw(){
   DrawRectangle(x, y, w, h, Color{100, 255, 100, 150});
 };

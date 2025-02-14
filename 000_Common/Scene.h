@@ -18,7 +18,7 @@ class Scene{
 public: 
   Scene(SceneStack& sceneStack, int winWidth, int winHeight):sceneStack{sceneStack}, winWidth{winWidth}, winHeight{winHeight}{};
   virtual void Init() = 0;
-  virtual void Update(uint32_t dt) = 0;
+  virtual void Update(double dt) = 0;
   virtual void Draw() = 0;
   virtual const std::string& GetSceneName() const = 0;
   virtual const void HandleInput(){

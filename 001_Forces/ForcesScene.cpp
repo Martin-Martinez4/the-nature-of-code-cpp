@@ -18,7 +18,7 @@ ForcesScene::ForcesScene(SceneStack& sceneStack, int winWidth, int winHeight): S
 void ForcesScene::Init() {
   liquids.push_back(Liquid(winWidth/2, winHeight/2, 100, 200));
 }
-void ForcesScene::Update(uint32_t dt) {
+void ForcesScene::Update(double dt) {
   if(!isPaused){
     
 

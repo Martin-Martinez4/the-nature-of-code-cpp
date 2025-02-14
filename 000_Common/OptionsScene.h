@@ -10,7 +10,7 @@ public:
   OptionsScene(SceneStack& sceneStack, int winWidth, int winHeight, std::vector<std::string> options, std::vector<std::function<void()>> actions);
   
   virtual void Init() override;
-  virtual void Update(uint32_t dt) override;
+  virtual void Update(double dt) override;
   virtual void Draw() override;
   virtual const std::string& GetSceneName() const override;
   virtual const void HandleInput() override;

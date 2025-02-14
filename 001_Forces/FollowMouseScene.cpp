@@ -10,7 +10,7 @@ FollowMouseScene::FollowMouseScene(SceneStack& sceneStack, int winWidth, int win
 };
 
 void FollowMouseScene::Init(){}
-void FollowMouseScene::Update(uint32_t dt){
+void FollowMouseScene::Update(double dt){
   targetPosition = GetMousePosition();
   Vector2 direction = Vector2Subtract(targetPosition, position);
   direction *= 0.2;

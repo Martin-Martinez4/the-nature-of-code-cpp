@@ -1,6 +1,7 @@
 
 
 #include <cmath>
+#include <iostream>
 #include <memory>
 #include "FollowMouseScene.h"
 #include "ForcesScene.h"
@@ -80,10 +81,9 @@ int main(){
 
   rlImGuiSetup(true);
   while(!WindowShouldClose()){
-
     auto current = sceneStack.top();
-    current->Update(GetFrameTime());
     current->Draw();
+    current->Update(GetFrameTime());
     current->HandleInput();
 
     /*

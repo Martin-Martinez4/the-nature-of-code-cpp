@@ -9,7 +9,7 @@ public:
   FollowMouseScene(SceneStack& sceneStack, int winWidth, int winHeight, float maxVelocity = 10.0f);
   
   virtual void Init() override;
-  virtual void Update(uint32_t dt) override;
+  virtual void Update(double dt) override;
   void DrawGUI();
   virtual void Draw() override;
   virtual const std::string& GetSceneName() const override;

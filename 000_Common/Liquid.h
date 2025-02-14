@@ -8,7 +8,7 @@ class Liquid{
 public:
   Liquid(float x, float y, float w, float h, float c = 0.1);
   void ApplyForce(Vector2 force);
-  void Update(uint32_t dt);
+  void Update(double dt);
   void Draw();
 
   bool ContainsMover(Body& body);

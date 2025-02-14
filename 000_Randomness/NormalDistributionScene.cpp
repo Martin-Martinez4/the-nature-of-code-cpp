@@ -29,7 +29,7 @@ void NormalDistributionScene::Init() {
 
 
 }
-void NormalDistributionScene::Update(uint32_t dt) {
+void NormalDistributionScene::Update(double dt) {
 
 }
 void NormalDistributionScene::Draw(){

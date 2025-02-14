@@ -9,7 +9,7 @@ VelocityScene::VelocityScene(SceneStack& sceneStack, int winWidth, int winHeight
   Scene(sceneStack, winWidth, winHeight), bottomPadding{bottomPadding}, xPadding{xPadding}, maxVelocity{maxVelocity}, position{std::move(position)}, velocity{std::move(velocity)}, acceleration{std::move(acceleration)}{};
 
 void VelocityScene::Init(){}
-void VelocityScene::Update(uint32_t dt){
+void VelocityScene::Update(double dt){
 
   position = Vector2Add(position, Vector2AddValue(velocity, dt));
     if(position.x > winWidth){
