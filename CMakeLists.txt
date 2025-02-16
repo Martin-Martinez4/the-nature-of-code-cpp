@@ -38,6 +38,9 @@ set(sources ${sources}
   ${CMAKE_CURRENT_SOURCE_DIR}/001_Forces/FollowMouseScene.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/001_Forces/ForcesScene.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/002_Oscillation/OscillationScene.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/003_Particles/Particle.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/003_Particles/ParticleScene.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/003_Particles/ParticleEmitter.cpp
   
   ${CMAKE_CURRENT_SOURCE_DIR}/Utils/Random.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/Utils/Number.cpp
@@ -56,6 +59,7 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/000_Randomness
   ${CMAKE_CURRENT_SOURCE_DIR}/001_Forces
   ${CMAKE_CURRENT_SOURCE_DIR}/002_Oscillation
+  ${CMAKE_CURRENT_SOURCE_DIR}/002_Particles
 
 )
 

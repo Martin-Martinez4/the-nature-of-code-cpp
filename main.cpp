@@ -3,6 +3,7 @@
 #include <cmath>
 #include <iostream>
 #include <memory>
+#include "003_Particles/ParticleScene.h"
 #include "FollowMouseScene.h"
 #include "ForcesScene.h"
 #include "NormalDistributionScene.h"
@@ -61,8 +62,10 @@ int main(){
     }
   ));
   
+  auto particleSelectScene = std::shared_ptr<Scene>(new ParticleScene(sceneStack, winWidth, winHeight));
+  
   auto chapterSelectScene = std::shared_ptr<Scene>(new OptionsScene(sceneStack, winWidth, winHeight, 
-      {"Randomness", "Forces"}, 
+      {"Randomness", "Forces", "Particles"}, 
       {
         [&sceneStack, randomnessSelectScene](){
           sceneStack.push(randomnessSelectScene);                                                              
@@ -70,6 +73,10 @@ int main(){
         [&sceneStack, forcesSelectScene](){
 
           sceneStack.push(forcesSelectScene);                                                              
+        },  
+        [&sceneStack, particleSelectScene](){
+
+          sceneStack.push(particleSelectScene);                                                              
         }, 
       }
     )
