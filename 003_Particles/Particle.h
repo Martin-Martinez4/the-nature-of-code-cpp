@@ -17,6 +17,7 @@ private:
   const float startingY;
   const int startingLifeSpan = 255;
   const float startingDelay;
+  const Vector2 startingVelocity;
 
   int lifeSpan = 255;
 };

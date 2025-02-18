@@ -82,3 +82,7 @@ float perlin(float x, float y, float repeatAfter){
   return lerp(ix0, ix1, sy);
 
 }
+
+Color randomColor(){
+  return Color{(unsigned char)(rand()%256), (unsigned char)(rand()%256), (unsigned char)(rand()%256), 255};
+}

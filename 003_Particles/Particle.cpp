@@ -1,15 +1,16 @@
 
 #include "Particle.h"
 #include "Body.h"
+#include <algorithm>
 #include <cmath>
 #include <iostream>
-Particle::Particle(Vector2 position, Vector2 velocity, Vector2 acceleration, float mass, Color color, float delay): Body(position, velocity, acceleration, mass, color), delay{delay}, startingDelay{delay}, startingX{position.x}, startingY{position.y}{};
-Particle::Particle(Vector2 position, float mass, Color color, float delay):  Body(position, mass, color), delay{delay}, startingDelay{delay}, startingX{position.x}, startingY{position.y}{};
+Particle::Particle(Vector2 position, Vector2 velocity, Vector2 acceleration, float mass, Color color, float delay): Body(position, velocity, acceleration, mass, color), startingVelocity{velocity}, delay{delay}, startingDelay{delay}, startingX{position.x}, startingY{position.y}{};
+Particle::Particle(Vector2 position, float mass, Color color, float delay):  Body(position, mass, color), startingVelocity(Vector2{0,0}), delay{delay}, startingDelay{delay}, startingX{position.x}, startingY{position.y}{};
 
 void Particle::Reset(){
   lifeSpan = 255;
   position = Vector2{startingX, startingY};
-  velocity = Vector2{0,0};
+  velocity = Vector2{startingVelocity.x, startingVelocity.y};
   acceleration = Vector2{0,0};
   delay = startingDelay;
 }

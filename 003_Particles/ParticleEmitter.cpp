@@ -3,16 +3,12 @@
 #include "raylib.h"
 #include <algorithm>
 #include <utility>
+#include "Number.h"
+#include "Random.h"
 
 ParticleEmitter::ParticleEmitter(Vector2 position, int numberOfParticles):position{std::move(position)}{
  for(int i = 0; i < numberOfParticles; ++i){
-    if(i % 2 == 0){
-
-      particles.push_back(Particle{Vector2{position.x + (i * 32), 0}, .25, PURPLE, (float)i*100});
-    }else{
-
-      particles.push_back(Particle{Vector2{position.x - (i * 32), 0}, .25, PURPLE, (float)i*100});
-    }
+    particles.push_back(Particle{Vector2{position.x + 0, position.y + 0}, Vector2{randomFloat(-5, 5), randomFloat(-5, 0)}, Vector2{0,0}, .25, GOLD, randomFloat(10, 400)});
   } 
 }
 
