@@ -1,39 +1,34 @@
 
-#include "ParticleScene.h"
+#include "AgentsScene.h"
 #include "raylib.h"
 #include <iostream>
 
-ParticleScene::ParticleScene(SceneStack& sceneStack, int winWidth, int winHeight):Scene(sceneStack, winWidth, winHeight){
+AgentsScene::AgentsScene(SceneStack& sceneStack, int winWidth, int winHeight):Scene(sceneStack, winWidth, winHeight){
   Init();
 };
 
-void ParticleScene::Init() {
-  //particles.push_back(Particle{Vector2{(float)(winWidth/2),0}, 1, PURPLE, 100});
-
-}
-void ParticleScene::Update(double dt) {
+void AgentsScene::Init() {}
+void AgentsScene::Update(double dt) {
   if(!isPaused){
-    pe.ApplyForce(gravity);
-    pe.Update(dt);
+   
   }
 }
-void ParticleScene::Draw() {
+void AgentsScene::Draw() {
 
   BeginDrawing();
-  /*
-  for(int i = 0; i < particles.size(); ++i){
-    particles[i].Draw();
+
+  for(unsigned int i = 0; i < targets.size(); ++i){
+    targets[i].Draw();
   }
-  */
-  pe.Draw();
+ 
   DrawGUI();
   EndDrawing();
 
 
   ClearBackground(BLACK);
 }
-const std::string& ParticleScene::GetSceneName() const {
+const std::string& AgentsScene::GetSceneName() const {
   return name;
 }
-const void ParticleScene::HandleInput() {}
-void ParticleScene::DrawGUI() {}
+const void AgentsScene::HandleInput() {}
+void AgentsScene::DrawGUI() {}

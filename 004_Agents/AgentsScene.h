@@ -4,6 +4,9 @@
 
 
 #include "Scene.h"
+#include "Agent.h"
+#include "Target.h"
+#include "raylib.h"
 #include <string>
 class AgentsScene: public Scene{
 
@@ -19,8 +22,10 @@ public:
 
 private:
   std::string name = "Agents";
-  
 
+  std::vector<Target> targets = {Target(Vector2{100, 100}, 1, GREEN), Target(Vector2{200, 150}, 2, BLUE)};
+  Agent agent = Agent(targets, Vector2{0.f,0.f}, 1, WHITE);
+  
   float tempX = 0;
   float tempY = 0;
   float tempMass = 1.0f;

@@ -14,7 +14,7 @@ void Body::ApplyForce(Vector2 force){
   acceleration = Vector2Add(acceleration, force / mass);
 }
 
-void Body::Update(uint32_t dt){
+void Body::Update(double dt){
   velocity += acceleration;
   position += velocity;
 
@@ -33,7 +33,7 @@ void Body::Update(uint32_t dt){
 void Body::Draw(){
   //BeginDrawing();
   angle = atan2f(velocity.y, velocity.x);
-  DrawCircle(position.x, position.y, mass * 16, RED);
+  DrawCircle(position.x, position.y, mass * 16, color);
   //DrawRectangle(position.x, position.y, mass * 16, mass*16, RED);
   //DrawPolyLines(position, 4, mass * 16, (angle * 180) / PI, RED);
   //DrawLine(position.x, position.y, radius * cosf(angle), radius * sinf(angle), BLACK);
