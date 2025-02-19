@@ -15,7 +15,7 @@ void NormalDistributionScene::Init() {
   std::random_device rd{};
   std::mt19937 gen{rd()};
 
-  std::normal_distribution d{5.0, 5.0};
+  std::normal_distribution<float> d{5.0, 5.0};
 
   // round to int
   // d = normal_distribution, g is the number generator
@@ -44,9 +44,11 @@ void NormalDistributionScene::Draw(){
     int numOfBars = histogram.size();
     int barWidth = ((winWidth - 2 * xPadding) - numOfBars * 2) / (numOfBars -1);
 
-    for(const auto [k, v] : histogram){
+    for(const auto& pair : histogram){
+      long v = pair.second;
+      unsigned k = pair.first;
 
-      DrawRectangle(barStart, winHeight - (v/2) - bottomPadding -10, barWidth, v/2, BLUE);
+      DrawRectangle(barStart, (winHeight - (v/2) - bottomPadding -10), barWidth, v/2, BLUE);
       DrawText(TextFormat("%d", k), barStart + barWidth/4, winHeight - bottomPadding - 5, 2, BLACK);
       barStart+= barWidth + 2;
     }
