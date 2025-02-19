@@ -35,10 +35,10 @@ int main(){
   auto randomnessSelectScene = std::shared_ptr<Scene>(new OptionsScene(sceneStack, winWidth, winHeight, 
     {"Normal Distribution", "Perlin Noise"}, 
     {
-      [&sceneStack](){
+      [&sceneStack, winWidth, winHeight](){
         sceneStack.push(std::shared_ptr<Scene>(new NormalDistributionScene{sceneStack, winWidth, winHeight, 10.f, 10.f}));
       }, 
-      [&sceneStack](){
+      [&sceneStack, winWidth, winHeight](){
         sceneStack.push(std::shared_ptr<Scene>(new PerlinNoiseScene(sceneStack, winWidth, winHeight)));
       },
     }
@@ -47,16 +47,16 @@ int main(){
   auto forcesSelectScene = std::shared_ptr<Scene>(new OptionsScene(sceneStack, winWidth, winHeight, 
     {"Velocity", "Follow the Mouse", "Forces", "Oscillation"}, 
     {
-      [&sceneStack](){
+      [&sceneStack, winWidth, winHeight](){
         sceneStack.push(std::shared_ptr<Scene>(new VelocityScene(sceneStack, winWidth, winHeight)));
       }, 
-      [&sceneStack](){
+      [&sceneStack, winWidth, winHeight](){
         sceneStack.push(std::shared_ptr<Scene>(new FollowMouseScene(sceneStack, winWidth, winHeight)));
       }, 
-      [&sceneStack](){
+      [&sceneStack, winWidth, winHeight](){
         sceneStack.push(std::shared_ptr<Scene>(new ForcesScene(sceneStack, winWidth, winHeight)));
       }, 
-      [&sceneStack](){
+      [&sceneStack, winWidth, winHeight](){
         sceneStack.push(std::shared_ptr<Scene>(new OscillationScene(sceneStack, winWidth, winHeight)));
       }, 
     }

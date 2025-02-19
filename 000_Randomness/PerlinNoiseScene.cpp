@@ -43,7 +43,7 @@ void PerlinNoiseScene::Init(){
 
       //std::cout << (unsigned char)(int)(((val+1.0f)/2)*255) << "\n";
       
-      DrawPixel(x, y, (Color){v, v, v, 255});
+      DrawPixel(x, y, Color{v, v, v, 255});
       //std::cout << val << "\n"
 
       //if((x/32+y/32)%2 == 0) DrawPixel(x, y, ORANGE);
