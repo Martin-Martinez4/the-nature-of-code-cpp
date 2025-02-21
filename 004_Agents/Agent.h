@@ -6,6 +6,7 @@
 #include "Target.h"
 #include "raylib.h"
 #include <vector>
+
 class Agent: public Body{
 public:
   Agent(std::vector<Target>& targets, Vector2 position = Vector2{0,0},  float mass = 10.f, Color color = RED);
@@ -21,7 +22,9 @@ public:
 private:
 
   void FindNextTarget();
-  void SetCourse();
+
+  float maxSpeed = 8;
+  float maxForce = 0.2; 
 };
 
 #endif // !AGENTS_AGENT_H_

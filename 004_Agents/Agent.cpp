@@ -1,14 +1,13 @@
 #include "Agent.h"
 #include "raylib.h"
+#include "Number.h"
 #include <limits>
 #include <cmath>
-#include <iostream>
 #include <raymath.h>
 
 Agent::Agent(std::vector<Target>& targets, Vector2 position, float mass, Color color):Body(position, mass, color), targets{targets}{
   FindNextTarget();
-  std::clog <<"Target Index: " << targetIndex << "\n";
-  SetCourse();
+  //SetCourse();
 };
 
 void Agent::Update(double dt){
@@ -28,7 +27,23 @@ void Agent::Update(double dt){
     }
   }
 
-  SetCourse();
+  Vector2 desired = setMagnitude(Vector2Subtract(targets[targetIndex].position, position), maxSpeed);
+  Vector2 steer = Vector2Subtract(desired, velocity);
+
+  // turn into a its own function
+  if(steer.x > maxForce){
+    steer.x = maxForce;
+  }else if(steer.x < -maxForce){
+    steer.x = -maxForce;
+  }
+   if(steer.y > maxForce){
+    steer.y = maxForce;
+  }else if(steer.y < -maxForce){
+    steer.y = -maxForce;
+  }
+
+  ApplyForce(steer);
+
   Body::Update(dt);
 }
 
@@ -54,7 +69,4 @@ void Agent::FindNextTarget(){
   }
 }
 
-void Agent::SetCourse(){
-  // Apply Force here
-  ApplyForce(Vector2Subtract(targets[targetIndex].position, position) * .001);
-}
+

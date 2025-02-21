@@ -45,6 +45,7 @@ set(sources ${sources}
   ${CMAKE_CURRENT_SOURCE_DIR}/004_Agents/Agent.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/004_Agents/Target.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/004_Agents/AgentsScene.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/004_Agents/PathFollowingScene.cpp
 
   
   ${CMAKE_CURRENT_SOURCE_DIR}/Utils/Random.cpp
@@ -68,13 +69,6 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/004_Agents
 
 )
-
-#add_library(imgui STATIC
-#  ${CMAKE_CURRENT_SOURCE_DIR}/external/imgui/imgui.cpp
-#  ${CMAKE_CURRENT_SOURCE_DIR}/external/imgui/imgui_draw.cpp
-#  ${CMAKE_CURRENT_SOURCE_DIR}/external/imgui/imgui_tables.cpp
-#  ${CMAKE_CURRENT_SOURCE_DIR}/external/imgui/imgui_widgets.cpp
-#)
 
 # rlimgui raylib backend for Dear imgui
 
