@@ -21,7 +21,7 @@ public:
 private:
   std::string name = "Particles";
   //std::vector<Particle> particles = {};
-  ParticleEmitter pe = ParticleEmitter(Vector2{(float)winWidth/2.f, 0}, 200);
+  ParticleEmitter pe = ParticleEmitter(Vector2{(float)winWidth/2.f, 100}, 100);
   
 
   float tempX = 0;

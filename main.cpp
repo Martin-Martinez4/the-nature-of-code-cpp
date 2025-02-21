@@ -17,10 +17,13 @@
 #include "Random.h"
 #include "imgui.h"
 #include "rlImGui.h"
+#include <ctime>
 
 int main(){
 
   SceneStack sceneStack;
+  srand(time(0));
+
 
   const int winWidth{920};
   const int winHeight{640};

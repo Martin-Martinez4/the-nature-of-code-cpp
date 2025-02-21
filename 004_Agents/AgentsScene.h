@@ -23,8 +23,16 @@ public:
 private:
   std::string name = "Agents";
 
-  std::vector<Target> targets = {Target(Vector2{100, 100}, 1, GREEN), Target(Vector2{200, 150}, 2, BLUE)};
-  Agent agent = Agent(targets, Vector2{0.f,0.f}, 1, WHITE);
+  std::vector<Target> targets = {
+    Target(Vector2{100, 100}, 1, GREEN), 
+    Target(Vector2{200, 150}, 2, BLUE), 
+    Target(Vector2{180, 200}, 1, GREEN), 
+    Target(Vector2{300, 300}, 2, BLUE), 
+    Target(Vector2{300, (float)winWidth/2}, 1, GREEN), 
+    Target(Vector2{(float)winWidth/2, 300}, 2, BLUE)
+  };
+  
+  Agent agent = Agent(targets, Vector2{(float)winWidth/2, (float)winHeight/2}, 1, WHITE);
   
   float tempX = 0;
   float tempY = 0;

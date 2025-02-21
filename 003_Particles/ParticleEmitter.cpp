@@ -8,7 +8,7 @@
 
 ParticleEmitter::ParticleEmitter(Vector2 position, int numberOfParticles):position{std::move(position)}{
  for(int i = 0; i < numberOfParticles; ++i){
-    particles.push_back(Particle{Vector2{position.x + 0, position.y + 0}, Vector2{randomFloat(-5, 5), randomFloat(-5, 0)}, Vector2{0,0}, .25, GOLD, randomFloat(10, 400)});
+    particles.push_back(Particle{Vector2{position.x + 0, position.y + 0}, Vector2{randomFloat(-5, 5), randomFloat(-5, 0)}, Vector2{0,0}, .5, randomColor(), randomFloat(10, 400)});
   } 
 }
 

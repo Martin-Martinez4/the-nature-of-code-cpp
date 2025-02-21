@@ -1,6 +1,7 @@
 #include "Number.h"
 #include "raymath.h"
 #include <cstdlib>
+#include <ctime>
 
 void bounceOnEdge(Body& mover, int width, int height){
   if(mover.position.x >= width - mover.radius){

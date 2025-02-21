@@ -1,5 +1,7 @@
 
 #include "AgentsScene.h"
+#include "Number.h"
+#include "Random.h"
 #include "raylib.h"
 #include <iostream>
 
@@ -7,9 +9,14 @@ AgentsScene::AgentsScene(SceneStack& sceneStack, int winWidth, int winHeight):Sc
   Init();
 };
 
-void AgentsScene::Init() {}
+void AgentsScene::Init() {
+  for(int i = 0; i < 30; ++i){
+    targets.push_back(Target(Vector2{randomFloat(16, winWidth-16), randomFloat(16, winHeight-16)}, 1, randomColor()));
+  }
+}
 void AgentsScene::Update(double dt) {
   if(!isPaused){
+    agent.Update(dt);
    
   }
 }
@@ -20,6 +27,8 @@ void AgentsScene::Draw() {
   for(unsigned int i = 0; i < targets.size(); ++i){
     targets[i].Draw();
   }
+
+  agent.Draw();
  
   DrawGUI();
   EndDrawing();
