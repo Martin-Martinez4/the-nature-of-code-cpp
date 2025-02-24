@@ -39,6 +39,8 @@ private:
 
   int NeighborSum(int c, int r);
 
+  int generation = 0;
+
 };
 
 #endif

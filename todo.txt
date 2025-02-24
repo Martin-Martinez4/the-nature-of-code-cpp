@@ -1,6 +1,4 @@
 - Projects from the book to do
-  - Game of Life
-  - Koch Curve page 417
   - Smart Rockets Page 471
   - Bloops Page 487
 

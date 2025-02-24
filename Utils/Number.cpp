@@ -26,6 +26,11 @@ Vector2 setMagnitude(Vector2 vec2, float magnitude){
   return Vector2Normalize(vec2) * magnitude; 
 }
 
+Vector2 randomNormailzedVector(){
+  float angle = randomFloat(0, 360) * PI_OVER_180;
+  return Vector2{sinf(angle), cosf(angle)};
+}
+
 float randomFloat(float min, float max){
   float random = ((float) rand()) / ((float)RAND_MAX);
   float diff = max - min;

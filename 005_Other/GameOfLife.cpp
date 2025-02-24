@@ -38,13 +38,15 @@ void GameOfLifeScene::Draw(){
         }
       }
     }
+
+    DrawText(&std::to_string(generation)[0], 0,0, 2, RED);
   
   //DrawRectangle(winWidth/2, winHeight/2, w, w, WHITE);
   EndDrawing();
   ClearBackground(BLACK);
 }
 void GameOfLifeScene::Update(double dt){
-
+  generation += 1;
   for(int c = 0; c < columns; ++c){
     for(int r = 0; r < rows; ++r){
       int neighborsSum = NeighborSum(c, r);
