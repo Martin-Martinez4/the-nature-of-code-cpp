@@ -22,6 +22,7 @@ public:
 private:
 
   void FindNextTarget();
+  void Seek(Vector2 target);
 
   float maxSpeed = 8;
   float maxForce = 0.2; 

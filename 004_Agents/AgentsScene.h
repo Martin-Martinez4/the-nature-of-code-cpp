@@ -1,7 +1,6 @@
+
 #ifndef AGENTS_AGENTS_SCENE_H_
 #define AGENTS_AGENTS_SCENE_H_
-
-
 
 #include "Scene.h"
 #include "Agent.h"

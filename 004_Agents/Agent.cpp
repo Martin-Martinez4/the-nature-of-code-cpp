@@ -27,6 +27,7 @@ void Agent::Update(double dt){
     }
   }
 
+  /*
   Vector2 desired = setMagnitude(Vector2Subtract(targets[targetIndex].position, position), maxSpeed);
   Vector2 steer = Vector2Subtract(desired, velocity);
 
@@ -43,6 +44,8 @@ void Agent::Update(double dt){
   }
 
   ApplyForce(steer);
+  */
+  Seek(Vector2Subtract(targets[targetIndex].position, position));
 
   Body::Update(dt);
 }
@@ -67,6 +70,26 @@ void Agent::FindNextTarget(){
       }
     }
   }
+}
+
+void Agent::Seek(Vector2 target){
+
+  Vector2 desired = setMagnitude(target, maxSpeed);
+  Vector2 steer = Vector2Subtract(desired, velocity);
+
+  // turn into a its own function
+  if(steer.x > maxForce){
+    steer.x = maxForce;
+  }else if(steer.x < -maxForce){
+    steer.x = -maxForce;
+  }
+   if(steer.y > maxForce){
+    steer.y = maxForce;
+  }else if(steer.y < -maxForce){
+    steer.y = -maxForce;
+  }
+
+  ApplyForce(steer);
 }
 
 

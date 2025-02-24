@@ -1,8 +1,8 @@
 
-
 #include <cmath>
 #include <iostream>
 #include <memory>
+#include "005_Other/GameOfLife.h"
 #include "AgentsScene.h"
 #include "ParticleScene.h"
 #include "FollowMouseScene.h"
@@ -10,6 +10,7 @@
 #include "NormalDistributionScene.h"
 #include "OptionsScene.h"
 #include "OscillationScene.h"
+#include "PathFollowingScene.h"
 #include "PerlinNoiseScene.h"
 #include "Scene.h"
 #include "VelocityScene.h"
@@ -68,9 +69,10 @@ int main(){
   
   auto particleSelectScene = std::shared_ptr<Scene>(new ParticleScene(sceneStack, winWidth, winHeight));
   auto agentsSelectScene = std::shared_ptr<Scene>(new AgentsScene(sceneStack, winWidth, winHeight));
-  
+  auto gameOfLifeSelectScene = std::shared_ptr<Scene>(new GameOfLifeScene(sceneStack, winWidth, winHeight));
+
   auto chapterSelectScene = std::shared_ptr<Scene>(new OptionsScene(sceneStack, winWidth, winHeight, 
-      {"Randomness", "Forces", "Particles", "Agents"}, 
+      {"Randomness", "Forces", "Particles", "Agents", "Game Of Life"}, 
       {
         [&sceneStack, randomnessSelectScene](){
           sceneStack.push(randomnessSelectScene);                                                              
@@ -86,6 +88,10 @@ int main(){
         [&sceneStack, agentsSelectScene](){
 
           sceneStack.push(agentsSelectScene);                                                              
+        }, 
+        [&sceneStack, gameOfLifeSelectScene](){
+
+          sceneStack.push(gameOfLifeSelectScene);                                                              
         }, 
       }
     )

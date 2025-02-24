@@ -45,7 +45,11 @@ set(sources ${sources}
   ${CMAKE_CURRENT_SOURCE_DIR}/004_Agents/Agent.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/004_Agents/Target.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/004_Agents/AgentsScene.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/004_Agents/Path.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/004_Agents/PathAgent.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/004_Agents/PathFollowingScene.cpp
+
+  ${CMAKE_CURRENT_SOURCE_DIR}/005_Other/GameOfLife.cpp
 
   
   ${CMAKE_CURRENT_SOURCE_DIR}/Utils/Random.cpp
@@ -67,6 +71,7 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/002_Oscillation
   ${CMAKE_CURRENT_SOURCE_DIR}/003_Particles
   ${CMAKE_CURRENT_SOURCE_DIR}/004_Agents
+  ${CMAKE_CURRENT_SOURCE_DIR}/005_Other
 
 )
 
