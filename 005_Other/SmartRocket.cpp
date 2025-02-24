@@ -78,10 +78,7 @@ void Population::Update(double dt){
     population[i].Update(dt);
   }
 
-  timeAlive += dt*10;
-
-  std::clog << timeAlive << "\n";
-  std::clog << timeToLive << "\n";
+  timeAlive += dt * 5;
 
   if(timeAlive > timeToLive){
     Fitness();
@@ -91,6 +88,7 @@ void Population::Update(double dt){
   }
 }
 void Population::Draw(){
+  DrawCircle(target.x, target.y, 3, BLUE);
   for(int i = 0; i < length; ++i){
     population[i].Draw();
   }
@@ -122,6 +120,8 @@ void Population::Reproduction(){
     child.Mutate(mutationRate);
     newPopulation.push_back(Rocket(target, child, timeToLive));
    }
+
+   population = newPopulation;
 }
 
 
