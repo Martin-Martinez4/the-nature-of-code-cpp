@@ -19,7 +19,13 @@ public:
 
 private:
   std::string name = "Game Of Life";
-  std::vector<std::vector<int>> board;
+
+  // similar to a double buffer set up
+  std::vector<std::vector<int>> board0;
+  std::vector<std::vector<int>> board1;
+
+   std::vector<std::vector<int>>& currentBoard = board0;
+   std::vector<std::vector<int>>& nextBoard = board1;
 
   int w = 8;
   int columns;
@@ -30,6 +36,8 @@ private:
   float tempMass = 1.0f;
 
   bool isPaused = false;
+
+  int NeighborSum(int c, int r);
 
 };
 
