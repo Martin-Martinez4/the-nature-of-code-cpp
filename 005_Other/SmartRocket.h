@@ -34,10 +34,7 @@ public:
 
   void Update(double dt);
   DNA CrossOver(Rocket rocket);
-  void CalculateFitness(){
-    fitness = 1/Vector2Distance(position, target);
-  }
-
+  void CalculateFitness();
 private:
   int geneIndex = 0;
 
@@ -49,7 +46,7 @@ public:
   Population(Vector2 target, float mutationRate, int length);
   int generations = 0;
 
-  int timeToLive = 5;
+  int timeToLive = 100;
   float timeAlive = 0;
 
   float mutationRate;
@@ -62,10 +59,10 @@ public:
   void Fitness();
   void Selection();
   void Reproduction();
+  void Init();
 
 private:
 
-  void Init();
 
   std::vector<Rocket> population;
   Rocket WeightedSelection();

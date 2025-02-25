@@ -13,15 +13,16 @@ DNA::DNA(int length):length{length}{
   Init();
 };
 void DNA::Init(){
+
   for(int i = 0; i < length; ++i){
-    genes.push_back(Vector2{randomFloat(0, 1), randomFloat(0,1)});
+    genes.push_back(randomNormailzedVector());
     genes[i] *= randomFloat(0, maxForce);
   }
 };
 
 void DNA::Mutate(float mutationRate){
   for(int i = 0; i < length; ++i){
-    if(randomFloat(0,1) > mutationRate){
+    if(randomFloat(0,1) < mutationRate){
       genes[i] = randomNormailzedVector();
     }
   }
@@ -32,12 +33,17 @@ Rocket::Rocket(Vector2 target, DNA dna, int lifeSpan, Vector2 position, Vector2 
 
 
 void Rocket::Update(double dt){
-  ApplyForce(dna.genes[geneIndex%lifeSpan]);
+  ApplyForce(dna.genes[geneIndex]);
   Body::Update(dt);
   geneIndex++;
 }
+
+void Rocket::CalculateFitness(){
+  float distance = 1/Vector2Distance(position, target);
+  fitness = powf(distance, 2);
+}
 DNA Rocket::CrossOver(Rocket rocket){
-  DNA dna  = DNA(lifeSpan);
+  DNA dna = DNA(lifeSpan);
   int midpoint = rand() % lifeSpan;
 
   for(int i = 0; i < lifeSpan; ++i){
@@ -54,9 +60,7 @@ DNA Rocket::CrossOver(Rocket rocket){
 
 
 // ===== Population =====
-Population::Population(Vector2 target, float mutationRate, int length):target{target}, mutationRate{mutationRate}, length{length}{
-  Init();
-};
+Population::Population(Vector2 target, float mutationRate, int length):target{target}, mutationRate{mutationRate}, length{length}{};
 Rocket Population::WeightedSelection(){
   int index = 0;
   float start = randomFloat(0, 1);
@@ -69,7 +73,7 @@ Rocket Population::WeightedSelection(){
 }
 void Population::Init(){
    for(int i = 0; i < length; ++i){
-    population.push_back(Rocket(target, DNA(timeToLive), timeToLive));
+    population.push_back(Rocket(target, DNA(timeToLive), timeToLive, Vector2{100, 600}));
    }
 }
 
@@ -78,9 +82,9 @@ void Population::Update(double dt){
     population[i].Update(dt);
   }
 
-  timeAlive += dt * 5;
+  timeAlive += 1;
 
-  if(timeAlive > timeToLive){
+  if(timeAlive >= timeToLive){
     Fitness();
     Selection();
     Reproduction();
@@ -113,22 +117,24 @@ void Population::Selection(){
 
 void Population::Reproduction(){
   std::vector<Rocket> newPopulation;
-   for(int i = 0; i < population.size(); ++i){
+  for(int i = 0; i < population.size(); ++i){
     Rocket parentA = WeightedSelection();
     Rocket parentB = WeightedSelection();
     DNA child = parentA.CrossOver(parentB);
     child.Mutate(mutationRate);
-    newPopulation.push_back(Rocket(target, child, timeToLive));
-   }
+    newPopulation.push_back(Rocket(target, child, timeToLive, Vector2{100, 600}));
+  }
 
    population = newPopulation;
 }
 
 
 // ===== Scene =====
-SmartRocketScene::SmartRocketScene(SceneStack& sceneStack, int winWidth, int winHeight):Scene(sceneStack, winWidth, winHeight), population{Population(Vector2{(float)winWidth/2, 48}, 0.1, 5)}{};
+SmartRocketScene::SmartRocketScene(SceneStack& sceneStack, int winWidth, int winHeight):Scene(sceneStack, winWidth, winHeight), population{Population(Vector2{320, 220}, 0.001, 10)}{};
 
-void SmartRocketScene::Init(){}
+void SmartRocketScene::Init(){
+  population.Init();
+}
 void SmartRocketScene::Draw(){
   BeginDrawing();
 

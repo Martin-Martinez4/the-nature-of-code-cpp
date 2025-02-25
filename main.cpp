@@ -96,7 +96,7 @@ int main(){
           sceneStack.push(gameOfLifeSelectScene);                                                              
         }, 
         [&sceneStack, rocketSelectScene](){
-
+          rocketSelectScene->Init();
           sceneStack.push(rocketSelectScene);                                                              
         }, 
       }
