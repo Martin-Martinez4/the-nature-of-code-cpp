@@ -22,15 +22,18 @@ private:
   float maxForce = 0.1;
 };
 
+// ===== Rocket =====
 class Rocket: public Body{
 public:
   Rocket(Vector2 target,  DNA dna, int lifeSpan, Vector2 position = Vector2{0,0}, Vector2 velocity= Vector2{0,0}, Vector2 acceleration= Vector2{0,0}, float mass = 1, Color color = RED);
 
-
   float fitness = 0;
   int lifeSpan;
+  bool hitObstacle = false;
+  bool hitTarget = false;
   Vector2 target;
   DNA dna;
+
 
   void Update(double dt);
   DNA CrossOver(Rocket rocket);
@@ -40,6 +43,22 @@ private:
 
 
 };
+
+// ===== Obstacle =====
+class Obstacle{
+public:
+  Obstacle(Vector2 position, int width, int height, Color color);
+  Vector2 position;
+  int width;
+  int height;
+  Color color;
+
+  void Draw();
+  bool Contains(Vector2 position);
+
+private:
+};
+
 
 class Population{
 public:
@@ -52,6 +71,8 @@ public:
   float mutationRate;
   int length;
   Vector2 target;
+
+  void CheckObstacleCollisions(std::vector<Obstacle>& obstacles);
 
   void Update(double dt);
   void Draw();
@@ -69,6 +90,8 @@ private:
 
 };
 
+
+// ===== Scene =====
 class SmartRocketScene: public Scene{
 
 public:
@@ -78,12 +101,15 @@ public:
   virtual void Update(double dt) override;
   virtual void Draw() override;
   virtual const std::string& GetSceneName() const override;
+
+
  
 
 private:
   std::string name = "Smart Rocket";
 
   Population population;
+  std::vector<Obstacle> obstacles{Obstacle(Vector2{100, 550}, 60, 20, GREEN)};
 
   float tempX = 0;
   float tempY = 0;

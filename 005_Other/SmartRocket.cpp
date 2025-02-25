@@ -33,14 +33,27 @@ Rocket::Rocket(Vector2 target, DNA dna, int lifeSpan, Vector2 position, Vector2 
 
 
 void Rocket::Update(double dt){
-  ApplyForce(dna.genes[geneIndex]);
-  Body::Update(dt);
-  geneIndex++;
+  if(!hitObstacle && !hitTarget){
+
+    ApplyForce(dna.genes[geneIndex]);
+    Body::Update(dt);
+    geneIndex++;
+
+    // check if target was hit
+  }
 }
 
 void Rocket::CalculateFitness(){
   float distance = 1/Vector2Distance(position, target);
   fitness = powf(distance, 2);
+
+  if(hitObstacle){
+    fitness *= 0.1;
+  }
+
+  if(hitTarget){
+    fitness *= 2;
+  }
 }
 DNA Rocket::CrossOver(Rocket rocket){
   DNA dna = DNA(lifeSpan);
@@ -58,6 +71,20 @@ DNA Rocket::CrossOver(Rocket rocket){
   return dna;
 }
 
+// ===== Obstacle =====
+Obstacle::Obstacle(Vector2 position, int width, int height, Color color):position{position}, width{width}, height{height}, color{color}{};
+
+void Obstacle::Draw(){
+  DrawRectangle(position.x, position.y, width, height, color);
+}
+bool Obstacle::Contains(Vector2 position){
+   return (
+      position.x > this->position.x &&
+      position.x < this->position.x + width &&
+      position.y > this->position.y &&
+      position.y < this->position.y + height
+    );
+}
 
 // ===== Population =====
 Population::Population(Vector2 target, float mutationRate, int length):target{target}, mutationRate{mutationRate}, length{length}{};
@@ -76,6 +103,21 @@ void Population::Init(){
     population.push_back(Rocket(target, DNA(timeToLive), timeToLive, Vector2{100, 600}));
    }
 }
+
+void Population::CheckObstacleCollisions(std::vector<Obstacle>& obstacles){
+  for(int i = 0; i < population.size(); ++i){
+
+    if(!population[i].hitObstacle && !population[i].hitTarget){
+
+      for(int j = 0; j < obstacles.size(); ++j){
+        if(obstacles[j].Contains(population[i].position)){
+          population[i].hitObstacle = true;
+        }
+      }
+    }
+  }
+}
+
 
 void Population::Update(double dt){
   for(int i = 0; i < length; ++i){
@@ -139,12 +181,17 @@ void SmartRocketScene::Draw(){
   BeginDrawing();
 
   population.Draw();
+  for(int i = 0; i < obstacles.size(); ++i){
+    obstacles[i].Draw();
+  }
    
   EndDrawing();
   ClearBackground(BLACK);
 }
 void SmartRocketScene::Update(double dt){
   population.Update(dt);
+  // check if any population hit any obstacle; if so change the hit obstacle to true
+  population.CheckObstacleCollisions(obstacles);
 }
 const std::string& SmartRocketScene::GetSceneName() const {
   return name;
