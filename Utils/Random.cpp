@@ -82,6 +82,26 @@ float perlin(float x, float y, float repeatAfter){
   return lerp(ix0, ix1, sy);
 
 }
+float perlin(float x){
+  float n0, n1;
+
+  int i0 = floor(x);
+  int i1 = i0 + 1;
+
+  float x0 = x -i0;
+  float x1 = x0 - 1.0f;
+
+  float t0 = 1.0f - x0*x0;
+
+  t0*=t0;
+  n0 = t0 * t0 * grad(p[i0], x0).x;
+
+  float t1 = 1.0f - x1*x1;
+  t1 *= t1;
+  n1 = t1 * t1 * grad(p[i1], x1).y;
+
+  return 0.395f * (n0 + n1);
+}
 
 Color randomColor(){
   return Color{(unsigned char)(rand()%256), (unsigned char)(rand()%256), (unsigned char)(rand()%256), 255};

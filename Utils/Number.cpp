@@ -37,3 +37,10 @@ float randomFloat(float min, float max){
   float r = random * diff;
   return min + r;
 }
+
+float mapFloatToRange(float value, float fromMin, float fromMax, float toMin, float toMax){
+  float ratio = (value-fromMin) / (fromMax-fromMin);
+  float toRange = toMax - toMin;
+  return toRange * ratio + toMin;
+}
+

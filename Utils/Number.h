@@ -22,4 +22,6 @@ Vector2 randomNormailzedVector();
 
 float randomFloat(float min, float max);
 
+float mapFloatToRange(float value, float fromMin, float fromMax, float toMin, float toMax);
+
 

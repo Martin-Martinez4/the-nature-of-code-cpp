@@ -51,6 +51,7 @@ set(sources ${sources}
 
   ${CMAKE_CURRENT_SOURCE_DIR}/005_Other/GameOfLife.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/005_Other/SmartRocket.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/005_Other/Bloops.cpp
 
   
   ${CMAKE_CURRENT_SOURCE_DIR}/Utils/Random.cpp

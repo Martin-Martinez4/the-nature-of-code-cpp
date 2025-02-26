@@ -13,6 +13,7 @@
 #include "PathFollowingScene.h"
 #include "PerlinNoiseScene.h"
 #include "SmartRocket.h"
+#include "Bloops.h"
 #include "Scene.h"
 #include "VelocityScene.h"
 #include "raylib.h"
@@ -72,9 +73,10 @@ int main(){
   auto agentsSelectScene = std::shared_ptr<Scene>(new AgentsScene(sceneStack, winWidth, winHeight));
   auto gameOfLifeSelectScene = std::shared_ptr<Scene>(new GameOfLifeScene(sceneStack, winWidth, winHeight));
   auto rocketSelectScene = std::shared_ptr<Scene>(new SmartRocketScene(sceneStack, winWidth, winHeight));
+  auto bloopsSelectScene = std::shared_ptr<Scene>(new BloopsScene(sceneStack, winWidth, winHeight));
 
   auto chapterSelectScene = std::shared_ptr<Scene>(new OptionsScene(sceneStack, winWidth, winHeight, 
-      {"Randomness", "Forces", "Particles", "Agents", "Game Of Life", "Rocket"}, 
+      {"Randomness", "Forces", "Particles", "Agents", "Game Of Life", "Rocket", "Bloops"}, 
       {
         [&sceneStack, randomnessSelectScene](){
           sceneStack.push(randomnessSelectScene);                                                              
@@ -98,6 +100,10 @@ int main(){
         [&sceneStack, rocketSelectScene](){
           rocketSelectScene->Init();
           sceneStack.push(rocketSelectScene);                                                              
+        }, 
+        [&sceneStack, bloopsSelectScene](){
+          bloopsSelectScene->Init();
+          sceneStack.push(bloopsSelectScene);                                                              
         }, 
       }
     )

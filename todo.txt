@@ -1,4 +1,3 @@
 - Projects from the book to do
-  - Smart Rockets Page 471
   - Bloops Page 487
 
