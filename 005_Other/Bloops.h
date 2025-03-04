@@ -47,7 +47,7 @@ public:
   float yOff = rand() % 1000;
 
   float maxSpeed = 3.f;
-  float radius = 16.f;
+  float radius;
 
   Color color = BLUE;
   
@@ -55,14 +55,15 @@ public:
   void Draw();
 
   bool IsDead();
-  // Eat will just increase HP; world should handle changing the Food's state
+
   void Eat();
 
-  void Reproduce();
+  bool Reproduce();
+  void Mutate();
 
 private:
 
-  float health = 100;
+  float health = 50;
 };
 
 
@@ -76,15 +77,20 @@ public:
   virtual void Init() override;
   virtual void Update(double dt) override;
   virtual void Draw() override;
+
+  void CleanUp();
   virtual const std::string& GetSceneName() const override;
 
 private:
   std::string name = "Bloops";
-  std::vector<Bloop> bloops = {Bloop(Vector2{randomFloat(0, winWidth), randomFloat(0, winHeight)}), Bloop(Vector2{randomFloat(0, winWidth), randomFloat(0, winHeight)}), Bloop(Vector2{randomFloat(0, winWidth), randomFloat(0, winHeight)})};
+  std::vector<Bloop> bloops = {Bloop(Vector2{randomFloat(0, winWidth), randomFloat(0, winHeight)}, BloopDNA{randomFloat(0.1, 1), randomFloat(0.1, 1)}), Bloop(Vector2{randomFloat(0, winWidth), randomFloat(0, winHeight)}, BloopDNA{randomFloat(0.1, 1), randomFloat(0.1, 1)}),Bloop(Vector2{randomFloat(0, winWidth), randomFloat(0, winHeight)}, BloopDNA{randomFloat(0.1, 1), randomFloat(0.1, 1)}),};
   std::vector<Food> food = {Food(Vector2{randomFloat(0, winWidth), randomFloat(0, winHeight)}), Food(Vector2{randomFloat(0, winWidth), randomFloat(0, winHeight)}), Food(Vector2{randomFloat(0, winWidth), randomFloat(0, winHeight)}), Food(Vector2{randomFloat(0, winWidth), randomFloat(0, winHeight)}), Food(Vector2{randomFloat(0, winWidth), randomFloat(0, winHeight)}), Food(Vector2{randomFloat(0, winWidth), randomFloat(0, winHeight)}), Food(Vector2{randomFloat(0, winWidth), randomFloat(0, winHeight)}), Food(Vector2{randomFloat(0, winWidth), randomFloat(0, winHeight)})};
 
 
   bool isPaused = false;
+
+  float CleanUpTime = 2;
+  float TimeToCleanUp = CleanUpTime;
 
 
 

@@ -1,15 +1,14 @@
 #include "Bloops.h"
 #include "Random.h"
 #include "raymath.h"
+#include <iostream>
 
 // ===== Food =====
 Food::Food(Vector2 position): position{position}{}
   
 void Food::Draw(){
-  if(isAlive){
     DrawRectangle(position.x, position.y, size, size, GREEN);
    
-  }
 }
 
 void Food::Update(double dt){}
@@ -25,13 +24,13 @@ BloopDNA BloopDNA::CreateCopy(){
 
 void BloopDNA::Mutate(){
   if(randomFloat(0,1) < mutationRate){
-    geneValue = randomFloat(0,1);
+    geneValue = randomFloat(0.1, 1);
   }
 };
 
 // ===== Bloop =====
 Bloop::Bloop(Vector2 position):position{position}, dna{BloopDNA()}{}
-Bloop::Bloop(Vector2 position, BloopDNA dna):position{position}, dna{dna}{}
+Bloop::Bloop(Vector2 position, BloopDNA dna):position{position}, dna{dna}, radius{mapFloatToRange(dna.geneValue, 0.1, 1, 8, 64)}, maxSpeed{mapFloatToRange(1/dna.geneValue, 1, 10, .5f, 10.f)}{}
   
 void Bloop::Update(double dt){
   if(!IsDead()){
@@ -60,9 +59,16 @@ void Bloop::Eat(){
   health += 100;
 }
 
-void Bloop::Reproduce(){
-
+bool Bloop::Reproduce(){
+  return randomFloat(0,1) < 0.0005;
+  
 }
+void Bloop::Mutate(){
+  dna.Mutate();
+  radius = mapFloatToRange(dna.geneValue, 0.1, 1, 8, 64); 
+  maxSpeed = mapFloatToRange(1/dna.geneValue, 1, 10, .5f, 10.f);
+}
+
 
 
 // ===== Scene =====
@@ -87,28 +93,39 @@ void BloopsScene::Update(double dt){
       }
 
       // keep them from going off screen
-      if(bloops[i].position.y > (winHeight - bloops[i].radius - 1)){
-        bloops[i].position.y = winHeight - bloops[i].radius - 1;
+      float radius = bloops[i].radius;
+      if(bloops[i].position.y > (winHeight - radius - 1)){
+        bloops[i].position.y = winHeight - radius - 1;
       }
-      if(bloops[i].position.y < bloops[i].radius){
-        bloops[i].position.y = bloops[i].radius;
+      if(bloops[i].position.y < radius){
+        bloops[i].position.y = radius;
       }
-      if(bloops[i].position.x > (winWidth - bloops[i].radius - 1)){
-        bloops[i].position.x = winWidth - bloops[i].radius - 1;
+      if(bloops[i].position.x > (winWidth - radius - 1)){
+        bloops[i].position.x = winWidth - radius - 1;
       }
-      if(bloops[i].position.x < bloops[i].radius){
-        bloops[i].position.x = bloops[i].radius;
+      if(bloops[i].position.x < radius){
+        bloops[i].position.x = radius;
       }
     }
     
   }
 
-  // will not run every update; make it run on a timer or something
-  auto toRemove = std::remove_if(bloops.begin(), bloops.end(), [](Bloop b){return b.IsDead();});
-  bloops.erase(toRemove, bloops.end());
-  // for(int i = 0; i < food.size(); ++i){
-  //   food[i].Update(dt);
-  // }
+  TimeToCleanUp -= dt;
+  if(TimeToCleanUp <= 0){
+    CleanUp();
+    TimeToCleanUp = CleanUpTime;
+  }
+
+  int size = bloops.size();
+  for(int i = 0; i < size; ++i){
+    if(bloops[i].Reproduce()){
+      Bloop b = Bloop{Vector2{bloops[i].position.x, bloops[i].position.y}, bloops[i].dna};
+      b.Mutate();
+      bloops.push_back(b);
+    }
+  }
+
+
 }
 void BloopsScene::Draw(){
   BeginDrawing();
@@ -121,6 +138,22 @@ void BloopsScene::Draw(){
   EndDrawing();
   ClearBackground(BLACK);
 }
+
+void BloopsScene::CleanUp(){
+ // will not run every update; make it run on a timer or something
+ std::clog << "Clean up: \n";
+  auto toRemove = std::remove_if(bloops.begin(), bloops.end(), [](Bloop b){return b.IsDead();});
+  for(auto itr = toRemove; itr != bloops.end(); ++itr){
+    food.push_back(Food(Vector2{itr->position.x, itr->position.y}));
+  }
+  bloops.erase(toRemove, bloops.end());
+
+  auto toRemoveFood = std::remove_if(food.begin(), food.end(), [](Food f){return !f.isAlive;});
+  food.erase(toRemoveFood, food.end());
+}
+
 const std::string& BloopsScene::GetSceneName() const{
   return name;
 }
+
+
